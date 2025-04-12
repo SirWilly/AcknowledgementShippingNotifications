@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcknowledgementShippingNotificationHandler.Tests", "test\AcknowledgementShippingNotificationHandler.Tests\AcknowledgementShippingNotificationHandler.Tests.csproj", "{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E9E84198-A972-41E4-8C8C-95919B942E01}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
