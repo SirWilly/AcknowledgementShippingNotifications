@@ -58,3 +58,4 @@ nunit-*.xml
 /projectSettingsUpdater.xml
 .idea/
 /modules.xml
+*.user
