@@ -13,7 +13,7 @@ public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logg
         return new AcknowledgementShippingNotificationDto
         {
             BoxHeader = boxHeader,
-            Contents = contents
+            Contents = contents.ToList()
         };
     }
     
@@ -43,10 +43,32 @@ public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logg
         };
     }
     
-    public static List<ProductDto> ParseBoxContents(string boxString)
+    public IEnumerable<ProductDto?> ParseBoxContents(string boxString)
     {
-        throw new NotImplementedException();
+        var lines = boxString.Split(Environment.NewLine);
+        var productLines = lines.Where(line => line.Trim().StartsWith("LINE")).ToList();
+        
+        return productLines.Count == 0 
+            ? [] 
+            : productLines.Select(ParseProduct);
     }
     
-    
+    public ProductDto? ParseProduct(string productString)
+    {
+        var productLineParts = productString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (productLineParts.Length != 4)
+        {
+            logger.LogWarning("Unexpected product line part count: {ProductLinePartCount}", productLineParts.Length);
+            return null;
+        }
+        
+        var quantity = int.TryParse(productLineParts[3], out var result) ? result : (int?)null;
+
+        return new ProductDto
+        {
+            PoNumber = productLineParts[1],
+            Isbn = productLineParts[2],
+            Quantity = quantity
+        };
+    }
 }
