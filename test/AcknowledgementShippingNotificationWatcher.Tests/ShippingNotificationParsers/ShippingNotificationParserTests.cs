@@ -1,4 +1,4 @@
-using AcknowledgementShippingNotificationWatcher.Domain;
+using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
 using AcknowledgementShippingNotificationWatcher.Parsers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

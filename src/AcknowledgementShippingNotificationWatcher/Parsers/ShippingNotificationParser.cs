@@ -1,4 +1,4 @@
-﻿using AcknowledgementShippingNotificationWatcher.Domain;
+﻿using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
 using Microsoft.Extensions.Logging;
 
 namespace AcknowledgementShippingNotificationWatcher.Parsers;

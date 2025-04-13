@@ -1,4 +1,4 @@
-namespace AcknowledgementShippingNotificationWatcher.Domain;
+namespace AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
 
 public class BoxHeaderDto
 {
