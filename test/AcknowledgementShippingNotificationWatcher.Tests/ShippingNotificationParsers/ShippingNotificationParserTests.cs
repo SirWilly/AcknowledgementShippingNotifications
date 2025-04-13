@@ -1,3 +1,5 @@
+using AcknowledgementShippingNotificationWatcher.Domain;
+using AcknowledgementShippingNotificationWatcher.Parsers;
 using Shouldly;
 
 namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationParsers;
@@ -19,8 +21,11 @@ public class ShippingNotificationParserTests
                                    """;
         var expectedOutput = new AcknowledgementShippingNotificationDto
         {
-            BoxId = "6874453I",
-            SupplierId = "TRSP117",
+            BoxHeader = new BoxHeaderDto
+            {
+                BoxId = "6874453I",
+                SupplierId = "TRSP117",                
+            },
             Contents = new List<ProductDto>
             {
                 new()
@@ -43,6 +48,8 @@ public class ShippingNotificationParserTests
                 }
             }
         };
+        
+        
 
         var shippingNotificationParser = new ShippingNotificationParser();
         var acknowledgementShippingNotificationDto = shippingNotificationParser.Parse(inputString);
