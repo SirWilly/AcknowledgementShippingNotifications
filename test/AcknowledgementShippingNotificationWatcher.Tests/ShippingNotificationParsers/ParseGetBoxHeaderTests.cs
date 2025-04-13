@@ -3,8 +3,10 @@ using Shouldly;
 
 namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationParsers;
 
-public class GetBoxHeaderDtoTests
+public class ParseBoxHeaderTests
 {
+    private readonly ShippingNotificationParser _shippingNotificationParser = new();
+
     [Test]
     public void GetBoxHeader_ValidInputString_ShouldReturnBoxHeaderDto()
     {
@@ -15,7 +17,7 @@ public class GetBoxHeaderDtoTests
 
                                    """;
  
-        var boxHeader = inputString.GetBoxHeader();
+        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
         using (Assert.EnterMultipleScope())
         {
             boxHeader?.BoxId.ShouldBe("6874453I");
@@ -27,7 +29,7 @@ public class GetBoxHeaderDtoTests
     public void GetBoxHeader_EmptyInputString_ShouldReturnNullBoxHeaderDto()
     {
         const string inputString = "    ";
-        var boxHeader = inputString.GetBoxHeader();
+        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
         boxHeader.ShouldBeNull();
     }
 
@@ -38,7 +40,7 @@ public class GetBoxHeaderDtoTests
                                    ADR  TRSP117                                                                                     6874453I                           
 
                                    """;
-        var boxHeader = inputString.GetBoxHeader();
+        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
         boxHeader.ShouldBeNull();
     }
 
@@ -49,7 +51,9 @@ public class GetBoxHeaderDtoTests
                                    HDR  TRSP117                                                                                     6874453I       abc                    
 
                                    """;
-        Should.Throw<Exception>(() => inputString.GetBoxHeader()).Message.ShouldStartWith("Invalid box header line:");
+        Should.Throw<Exception>(() => 
+            _shippingNotificationParser.ParseBoxHeader(inputString))
+            .Message.ShouldStartWith("Invalid box header line:");
     }
     
     [Test]
@@ -59,6 +63,8 @@ public class GetBoxHeaderDtoTests
                                    HDR  TRSP117                      
 
                                    """;
-        Should.Throw<Exception>(() => inputString.GetBoxHeader()).Message.ShouldStartWith("Invalid box header line:");
+        Should.Throw<Exception>(() => 
+            _shippingNotificationParser.ParseBoxHeader(inputString))
+            .Message.ShouldStartWith("Invalid box header line:");
     }
 }
