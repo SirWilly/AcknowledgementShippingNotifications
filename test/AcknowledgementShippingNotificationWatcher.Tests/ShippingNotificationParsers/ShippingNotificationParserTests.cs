@@ -1,5 +1,7 @@
 using AcknowledgementShippingNotificationWatcher.Domain;
 using AcknowledgementShippingNotificationWatcher.Parsers;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using Shouldly;
 
 namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationParsers;
@@ -48,10 +50,9 @@ public class ShippingNotificationParserTests
                 }
             }
         };
+        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
+        var shippingNotificationParser = new ShippingNotificationParser(logger);
         
-        
-
-        var shippingNotificationParser = new ShippingNotificationParser();
         var acknowledgementShippingNotificationDto = shippingNotificationParser.Parse(inputString);
         acknowledgementShippingNotificationDto.ShouldBeEquivalentTo(expectedOutput);
     }

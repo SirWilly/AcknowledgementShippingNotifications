@@ -1,13 +1,14 @@
 ﻿using AcknowledgementShippingNotificationWatcher.Domain;
+using Microsoft.Extensions.Logging;
 
 namespace AcknowledgementShippingNotificationWatcher.Parsers;
 
-public class ShippingNotificationParser
+public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logger)
 {
     public AcknowledgementShippingNotificationDto Parse(string boxString)
     {
         var boxHeader = ParseBoxHeader(boxString);
-        var contents = boxString.GetBoxContents();
+        var contents = ParseBoxContents(boxString);
 
         return new AcknowledgementShippingNotificationDto
         {
@@ -23,13 +24,16 @@ public class ShippingNotificationParser
         var boxHeaderLine = lines.SingleOrDefault(line => line.Trim().StartsWith("HDR"));
         if (boxHeaderLine is null)
         {
+            logger.LogWarning($"Box header not found");
             return null;
         }
         
         var boxHeaderLineParts = boxHeaderLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (boxHeaderLineParts.Length != 3)
         {
-            throw new Exception($"Invalid box header line: {boxString}");
+            logger.LogWarning("Unexpected box header line part count: {BoxHeaderLinePartCount}"
+                ,boxHeaderLineParts.Length);
+            return null;
         }
 
         return new BoxHeaderDto
@@ -38,4 +42,11 @@ public class ShippingNotificationParser
             BoxId = boxHeaderLineParts[2]
         };
     }
+    
+    public static List<ProductDto> ParseBoxContents(string boxString)
+    {
+        throw new NotImplementedException();
+    }
+    
+    
 }

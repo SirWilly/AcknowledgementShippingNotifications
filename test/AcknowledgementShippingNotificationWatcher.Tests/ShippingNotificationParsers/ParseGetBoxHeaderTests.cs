@@ -1,11 +1,19 @@
 using AcknowledgementShippingNotificationWatcher.Parsers;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using Shouldly;
 
 namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationParsers;
 
 public class ParseBoxHeaderTests
 {
-    private readonly ShippingNotificationParser _shippingNotificationParser = new();
+    private readonly ShippingNotificationParser _shippingNotificationParser;
+
+    public ParseBoxHeaderTests()
+    {
+        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
+        _shippingNotificationParser = new ShippingNotificationParser(logger);
+    }
 
     [Test]
     public void GetBoxHeader_ValidInputString_ShouldReturnBoxHeaderDto()
@@ -51,9 +59,7 @@ public class ParseBoxHeaderTests
                                    HDR  TRSP117                                                                                     6874453I       abc                    
 
                                    """;
-        Should.Throw<Exception>(() => 
-            _shippingNotificationParser.ParseBoxHeader(inputString))
-            .Message.ShouldStartWith("Invalid box header line:");
+        _shippingNotificationParser.ParseBoxHeader(inputString).ShouldBeNull();
     }
     
     [Test]
@@ -63,8 +69,6 @@ public class ParseBoxHeaderTests
                                    HDR  TRSP117                      
 
                                    """;
-        Should.Throw<Exception>(() => 
-            _shippingNotificationParser.ParseBoxHeader(inputString))
-            .Message.ShouldStartWith("Invalid box header line:");
+        _shippingNotificationParser.ParseBoxHeader(inputString).ShouldBeNull();
     }
 }
