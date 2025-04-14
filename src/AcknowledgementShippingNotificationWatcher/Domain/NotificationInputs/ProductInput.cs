@@ -1,6 +1,6 @@
 namespace AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
 
-public record ProductDto
+public record ProductInput
 {
     public string? PoNumber { get; set; }
     public string? Isbn { get; set; }

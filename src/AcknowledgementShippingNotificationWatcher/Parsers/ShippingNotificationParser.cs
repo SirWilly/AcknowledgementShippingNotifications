@@ -5,19 +5,19 @@ namespace AcknowledgementShippingNotificationWatcher.Parsers;
 
 public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logger)
 {
-    public AcknowledgementShippingNotificationDto Parse(string boxString)
+    public AcknowledgementShippingNotificationInput Parse(string boxString)
     {
         var boxHeader = ParseBoxHeader(boxString);
         var contents = ParseBoxContents(boxString);
 
-        return new AcknowledgementShippingNotificationDto
+        return new AcknowledgementShippingNotificationInput
         {
             BoxHeader = boxHeader,
             Contents = contents.ToList()
         };
     }
     
-    public BoxHeaderDto? ParseBoxHeader(string boxString)
+    public BoxHeaderInput? ParseBoxHeader(string boxString)
     {
         var lines = boxString.Split(Environment.NewLine);
         
@@ -36,14 +36,14 @@ public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logg
             return null;
         }
 
-        return new BoxHeaderDto
+        return new BoxHeaderInput
         {
             SupplierId = boxHeaderLineParts[1],
             BoxId = boxHeaderLineParts[2]
         };
     }
     
-    public IEnumerable<ProductDto?> ParseBoxContents(string boxString)
+    public IEnumerable<ProductInput?> ParseBoxContents(string boxString)
     {
         var lines = boxString.Split(Environment.NewLine);
         var productLines = lines.Where(line => line.Trim().StartsWith("LINE")).ToList();
@@ -53,7 +53,7 @@ public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logg
             : productLines.Select(ParseProduct);
     }
     
-    public ProductDto? ParseProduct(string productString)
+    public ProductInput? ParseProduct(string productString)
     {
         var productLineParts = productString.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (productLineParts.Length != 4)
@@ -64,7 +64,7 @@ public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logg
         
         var quantity = int.TryParse(productLineParts[3], out var result) ? result : (int?)null;
 
-        return new ProductDto
+        return new ProductInput
         {
             PoNumber = productLineParts[1],
             Isbn = productLineParts[2],

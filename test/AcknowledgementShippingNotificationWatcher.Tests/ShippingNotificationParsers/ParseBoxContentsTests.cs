@@ -39,7 +39,7 @@ public class ParseBoxContentsTests
                                    LINE P000001661                           9781473667273                     2      
                                    
                                    """;
-        var expectedContents = new List<ProductDto?>
+        var expectedContents = new List<ProductInput?>
         {
             new()
             {

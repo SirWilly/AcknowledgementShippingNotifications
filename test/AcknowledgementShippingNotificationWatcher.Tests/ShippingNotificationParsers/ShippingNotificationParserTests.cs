@@ -21,14 +21,14 @@ public class ShippingNotificationParserTests
                                    LINE P000001661                           9781473665798                     1      
 
                                    """;
-        var expectedOutput = new AcknowledgementShippingNotificationDto
+        var expectedOutput = new AcknowledgementShippingNotificationInput
         {
-            BoxHeader = new BoxHeaderDto
+            BoxHeader = new BoxHeaderInput
             {
                 BoxId = "6874453I",
                 SupplierId = "TRSP117",                
             },
-            Contents = new List<ProductDto>
+            Contents = new List<ProductInput>
             {
                 new()
                 {

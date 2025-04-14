@@ -20,7 +20,7 @@ public class ParseProductTests
     public void ParseProduct_ValidInput_ShouldReturnProductDto()
     {
         const string inputString = "LINE P000001661                           9781473663800                     12   ";
-        var expectedProductDto = new ProductDto
+        var expectedProductDto = new ProductInput
         {
             PoNumber = "P000001661",
             Isbn = "9781473663800",
@@ -35,7 +35,7 @@ public class ParseProductTests
     public void ParseProduct_UnexpectedQuantityValue_ShouldSetQuantityToNull()
     {
         const string inputString = "LINE P000001661                           9781473663800                     AB   ";
-        var expectedProductDto = new ProductDto
+        var expectedProductDto = new ProductInput
         {
             PoNumber = "P000001661",
             Isbn = "9781473663800",
