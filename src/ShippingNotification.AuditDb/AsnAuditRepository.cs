@@ -1,6 +1,6 @@
 using AcknowledgementShippingNotificationWatcher.Domain;
 
-namespace ShippingNotificationDb;
+namespace ShippingNotification.AuditDb;
 
 public class AsnAuditRepository : IShippingNotificationAuditRepository
 {

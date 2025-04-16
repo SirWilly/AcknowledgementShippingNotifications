@@ -1,4 +1,4 @@
-namespace ShippingNotificationDb.Models;
+namespace ShippingNotification.AuditDb.Models;
 
 public class ProductLine
 {

@@ -1,7 +1,7 @@
 using AcknowledgementShippingNotificationWatcher.Domain;
-using ShippingNotificationDb.Models;
+using ShippingNotification.AuditDb.Models;
 
-namespace ShippingNotificationDb;
+namespace ShippingNotification.AuditDb;
 
 public static class AsnAuditConverter
 {

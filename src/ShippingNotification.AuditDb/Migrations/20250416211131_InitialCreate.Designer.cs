@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShippingNotificationDb;
+using ShippingNotification.AuditDb;
 
 #nullable disable
 
-namespace ShippingNotificationDb.Migrations
+namespace ShippingNotification.AuditDb.Migrations
 {
     [DbContext(typeof(AsnAuditContext))]
     [Migration("20250416211131_InitialCreate")]
@@ -20,7 +20,7 @@ namespace ShippingNotificationDb.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
 
-            modelBuilder.Entity("ShippingNotificationDb.Models.Box", b =>
+            modelBuilder.Entity("ShippingNotification.AuditDb.Models.Box", b =>
                 {
                     b.Property<string>("BoxId")
                         .HasColumnType("TEXT");
@@ -34,7 +34,7 @@ namespace ShippingNotificationDb.Migrations
                     b.ToTable("Boxes");
                 });
 
-            modelBuilder.Entity("ShippingNotificationDb.Models.ProductLine", b =>
+            modelBuilder.Entity("ShippingNotification.AuditDb.Models.ProductLine", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,14 +61,14 @@ namespace ShippingNotificationDb.Migrations
                     b.ToTable("ProductLine");
                 });
 
-            modelBuilder.Entity("ShippingNotificationDb.Models.ProductLine", b =>
+            modelBuilder.Entity("ShippingNotification.AuditDb.Models.ProductLine", b =>
                 {
-                    b.HasOne("ShippingNotificationDb.Models.Box", null)
+                    b.HasOne("ShippingNotification.AuditDb.Models.Box", null)
                         .WithMany("Products")
                         .HasForeignKey("BoxId");
                 });
 
-            modelBuilder.Entity("ShippingNotificationDb.Models.Box", b =>
+            modelBuilder.Entity("ShippingNotification.AuditDb.Models.Box", b =>
                 {
                     b.Navigation("Products");
                 });

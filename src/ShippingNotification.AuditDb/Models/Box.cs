@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ShippingNotificationDb.Models;
+namespace ShippingNotification.AuditDb.Models;
 
 public class Box
 {

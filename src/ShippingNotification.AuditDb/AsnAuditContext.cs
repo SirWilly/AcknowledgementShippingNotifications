@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShippingNotificationDb.Models;
+using ShippingNotification.AuditDb.Models;
 
-namespace ShippingNotificationDb;
+namespace ShippingNotification.AuditDb;
 
 public class AsnAuditContext : DbContext
 {
