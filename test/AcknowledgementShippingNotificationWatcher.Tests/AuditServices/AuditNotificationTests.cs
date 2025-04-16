@@ -81,7 +81,7 @@ public class AuditNotificationTests
             .Returns(convertSuccessResult);
 
         _shippingNotificationAuditService.AuditNotification(input);
-        _auditRepository.Received(1).Save(convertSuccessResult.AcknowledgementShippingNotification);
+        _auditRepository.Received(1).Add(convertSuccessResult.AcknowledgementShippingNotification);
     }
 
     [Test]

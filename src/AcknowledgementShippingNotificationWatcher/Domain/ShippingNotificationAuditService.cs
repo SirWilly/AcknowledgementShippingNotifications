@@ -18,7 +18,7 @@ public class ShippingNotificationAuditService(
                 // that we encountered a corrupt record.
                 throw new FormatException($"Failed to convert shipping notification input. Reason: {failedResult.Reason}");
             case AcknowledgementShippingNotificationSuccessConvertResult successResult:
-                repository.Save(successResult.AcknowledgementShippingNotification);
+                repository.Add(successResult.AcknowledgementShippingNotification);
                 break;
             default:
                 throw new Exception("Unexpected result from AcknowledgementShippingNotificationConverter");

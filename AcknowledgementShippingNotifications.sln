@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcknowledgementShippingNotificationWatcher", "src\AcknowledgementShippingNotificationWatcher\AcknowledgementShippingNotificationWatcher.csproj", "{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingNotificationDb", "src\ShippingNotificationDb\ShippingNotificationDb.csproj", "{286BA84F-861E-4F3D-947E-20DC813A53F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286BA84F-861E-4F3D-947E-20DC813A53F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286BA84F-861E-4F3D-947E-20DC813A53F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286BA84F-861E-4F3D-947E-20DC813A53F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286BA84F-861E-4F3D-947E-20DC813A53F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
