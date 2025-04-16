@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcknowledgementShippingNotificationWatcher.Tests", "test\AcknowledgementShippingNotificationWatcher.Tests\AcknowledgementShippingNotificationWatcher.Tests.csproj", "{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsnMonitor.Application.Tests", "test\AsnMonitor.Application.Tests\AsnMonitor.Application.Tests.csproj", "{D88E0573-C945-4E11-82D9-2B0DE1ABBAA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E9E84198-A972-41E4-8C8C-95919B942E01}"
 	ProjectSection(SolutionItems) = preProject
@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcknowledgementShippingNotificationWatcher", "src\AcknowledgementShippingNotificationWatcher\AcknowledgementShippingNotificationWatcher.csproj", "{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsnMonitor.Application", "src\AsnMonitor.Application\AsnMonitor.Application.csproj", "{5749019A-691C-4B32-9EF2-2D50AFDEEEE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShippingNotification.AuditDb", "src\ShippingNotification.AuditDb\ShippingNotification.AuditDb.csproj", "{286BA84F-861E-4F3D-947E-20DC813A53F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsnMonitor.AuditDb", "src\AsnMonitor.AuditDb\AsnMonitor.AuditDb.csproj", "{286BA84F-861E-4F3D-947E-20DC813A53F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

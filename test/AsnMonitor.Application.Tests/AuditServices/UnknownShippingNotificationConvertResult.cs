@@ -1,0 +1,7 @@
+using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
+
+namespace AsnMonitor.Application.Tests.AuditServices;
+
+public class UnknownShippingNotificationConvertResult : IAcknowledgementShippingNotificationConvertResult
+{
+}
