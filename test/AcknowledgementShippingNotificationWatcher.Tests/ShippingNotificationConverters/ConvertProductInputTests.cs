@@ -8,10 +8,12 @@ namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationC
 
 public class ConvertProductInputTests
 {
+    private readonly AcknowledgementShippingNotificationConverter _acknowledgementShippingNotificationConverter = new();
+
     [TestCaseSource(typeof(ConvertProductFailedResultTestCaseSource))]
     public void Convert_UnexpectedInput_ShouldReturnFailedResult(ConvertProductFailedResultTestCase testCase)
     {
-        AcknowledgementShippingNotificationConverter.Convert(testCase.ProductInput)
+        _acknowledgementShippingNotificationConverter.Convert(testCase.ProductInput)
             .ShouldBeOfType<ProductConvertFailureResult>()
             .Reason.ShouldBe(testCase.ExpectedReason);
     }
@@ -34,6 +36,6 @@ public class ConvertProductInputTests
                 Quantity = 12
             }
         };
-        AcknowledgementShippingNotificationConverter.Convert(input).ShouldBeEquivalentTo(expectedResult);
+        _acknowledgementShippingNotificationConverter.Convert(input).ShouldBeEquivalentTo(expectedResult);
     }
 }

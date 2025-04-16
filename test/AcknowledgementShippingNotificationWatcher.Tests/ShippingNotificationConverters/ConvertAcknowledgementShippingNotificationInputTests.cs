@@ -9,7 +9,8 @@ public class ConvertAcknowledgementShippingNotificationInputTests
     [TestCaseSource(typeof(ConvertAcknowledgementShippingNotificationFailedResultTestCaseSource))]
     public void Convert_UnexpectedInput_ShouldReturnFailedResult(ConvertAcknowledgementShippingNotificationFailedResultTestCase testCase)
     {
-        AcknowledgementShippingNotificationConverter.Convert(testCase.Input)
+        var converter = new AcknowledgementShippingNotificationConverter();
+        converter.Convert(testCase.Input)
             .ShouldBeOfType<AcknowledgementShippingNotificationFailedConvertResult>()
             .Reason.ShouldBe(testCase.ExpectedReason);
     }
