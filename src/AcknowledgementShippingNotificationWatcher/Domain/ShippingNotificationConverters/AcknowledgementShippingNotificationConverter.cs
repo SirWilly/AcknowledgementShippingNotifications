@@ -5,9 +5,9 @@ namespace AcknowledgementShippingNotificationWatcher.Domain.ShippingNotification
 
 // According to business requirements we may want to allow some empty values but in this case I have considered that
 // all the fields are mandatory and issues in parsing are not tolerated.
-public static class AcknowledgementShippingNotificationConverter
+public class AcknowledgementShippingNotificationConverter : IAcknowledgementShippingNotificationConverter
 {
-    public static IAcknowledgementShippingNotificationConvertResult Convert(AcknowledgementShippingNotificationInput input)
+    public IAcknowledgementShippingNotificationConvertResult Convert(AcknowledgementShippingNotificationInput input)
     {
         if (input.BoxHeader is null)
         {
@@ -67,7 +67,7 @@ public static class AcknowledgementShippingNotificationConverter
         };
     }
 
-    public static IProductConvertResult Convert(ProductInput? input)
+    public IProductConvertResult Convert(ProductInput? input)
     {
         if (input == null)
         {

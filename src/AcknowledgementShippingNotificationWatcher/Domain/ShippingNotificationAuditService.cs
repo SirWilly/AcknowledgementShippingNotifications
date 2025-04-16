@@ -4,11 +4,13 @@ using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConv
 
 namespace AcknowledgementShippingNotificationWatcher.Domain;
 
-public class ShippingNotificationAuditService(IShippingNotificationAuditRepository repository)
+public class ShippingNotificationAuditService(
+    IAcknowledgementShippingNotificationConverter acknowledgementShippingNotificationConverter,
+    IShippingNotificationAuditRepository repository)
 {
     public void AuditNotification(AcknowledgementShippingNotificationInput notificationDto)
     {
-        var result = AcknowledgementShippingNotificationConverter.Convert(notificationDto);
+        var result = acknowledgementShippingNotificationConverter.Convert(notificationDto);
         switch (result)
         {
             case AcknowledgementShippingNotificationFailedConvertResult failedResult:
