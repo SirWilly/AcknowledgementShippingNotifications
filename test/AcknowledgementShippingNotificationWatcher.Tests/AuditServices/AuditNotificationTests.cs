@@ -83,4 +83,19 @@ public class AuditNotificationTests
         _shippingNotificationAuditService.AuditNotification(input);
         _auditRepository.Received(1).Save(convertSuccessResult.AcknowledgementShippingNotification);
     }
+
+    [Test]
+    public void AuditNotification_UnknownResultType_ShouldThrow()
+    {
+        var input = new AcknowledgementShippingNotificationInput
+        {
+            Contents = new List<ProductInput?>()
+        };
+        _acknowledgementShippingNotificationConverter.Convert(input)
+            .Returns(new UnknownShippingNotificationConvertResult());
+        
+        Should.Throw<Exception>(() =>
+                _shippingNotificationAuditService.AuditNotification(input))
+            .Message.ShouldBe("Unexpected result from AcknowledgementShippingNotificationConverter");
+    }
 }
