@@ -2,8 +2,8 @@ using AsnMonitor.Application.NotificationInputs;
 
 namespace AsnMonitor.Application.Tests.ShippingNotificationConverters;
 
-public class ConvertProductFailedResultTestCase
+public class ConvertAsnFailedResultTestCase
 {
-    public ProductInput? ProductInput { get; init; }
+    public required AsnInput Input { get; init; }
     public required string ExpectedReason { get; init; }
 }

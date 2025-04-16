@@ -1,6 +1,6 @@
-namespace AcknowledgementShippingNotificationWatcher.Domain;
+namespace AsnMonitor.Application;
 
-public class AcknowledgementShippingNotification
+public class Asn
 {
     public required string BoxId { get; init; }
     public required string SupplierId { get; init; }

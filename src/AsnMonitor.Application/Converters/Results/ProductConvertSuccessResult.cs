@@ -1,4 +1,4 @@
-namespace AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
+namespace AsnMonitor.Application.Converters.Results;
 
 public class ProductConvertSuccessResult : IProductConvertResult
 {

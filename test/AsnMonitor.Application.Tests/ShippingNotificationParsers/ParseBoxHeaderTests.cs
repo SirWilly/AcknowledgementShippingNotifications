@@ -1,4 +1,4 @@
-using AcknowledgementShippingNotificationWatcher.Parsers;
+using AsnMonitor.Application.Parsers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Shouldly;
@@ -7,12 +7,12 @@ namespace AsnMonitor.Application.Tests.ShippingNotificationParsers;
 
 public class ParseBoxHeaderTests
 {
-    private readonly ShippingNotificationParser _shippingNotificationParser;
+    private readonly AsnParser _asnParser;
 
     public ParseBoxHeaderTests()
     {
-        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
-        _shippingNotificationParser = new ShippingNotificationParser(logger);
+        var logger = Substitute.For<ILogger<AsnParser>>();
+        _asnParser = new AsnParser(logger);
     }
 
     [Test]
@@ -25,7 +25,7 @@ public class ParseBoxHeaderTests
 
                                    """;
  
-        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
+        var boxHeader = _asnParser.ParseBoxHeader(inputString);
         using (Assert.EnterMultipleScope())
         {
             boxHeader?.BoxId.ShouldBe("6874453I");
@@ -37,7 +37,7 @@ public class ParseBoxHeaderTests
     public void GetBoxHeader_EmptyInputString_ShouldReturnNullBoxHeaderDto()
     {
         const string inputString = "    ";
-        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
+        var boxHeader = _asnParser.ParseBoxHeader(inputString);
         boxHeader.ShouldBeNull();
     }
 
@@ -48,7 +48,7 @@ public class ParseBoxHeaderTests
                                    ADR  TRSP117                                                                                     6874453I                           
 
                                    """;
-        var boxHeader = _shippingNotificationParser.ParseBoxHeader(inputString);
+        var boxHeader = _asnParser.ParseBoxHeader(inputString);
         boxHeader.ShouldBeNull();
     }
 
@@ -59,7 +59,7 @@ public class ParseBoxHeaderTests
                                    HDR  TRSP117                                                                                     6874453I       abc                    
 
                                    """;
-        _shippingNotificationParser.ParseBoxHeader(inputString).ShouldBeNull();
+        _asnParser.ParseBoxHeader(inputString).ShouldBeNull();
     }
     
     [Test]
@@ -69,6 +69,6 @@ public class ParseBoxHeaderTests
                                    HDR  TRSP117                      
 
                                    """;
-        _shippingNotificationParser.ParseBoxHeader(inputString).ShouldBeNull();
+        _asnParser.ParseBoxHeader(inputString).ShouldBeNull();
     }
 }

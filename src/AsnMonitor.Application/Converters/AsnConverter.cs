@@ -1,17 +1,17 @@
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
-using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
+using AsnMonitor.Application.Converters.Results;
+using AsnMonitor.Application.NotificationInputs;
 
-namespace AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters;
+namespace AsnMonitor.Application.Converters;
 
 // According to business requirements we may want to allow some empty values but in this case I have considered that
 // all the fields are mandatory and issues in parsing are not tolerated.
-public class AcknowledgementShippingNotificationConverter : IAcknowledgementShippingNotificationConverter
+public class AsnConverter : IAsnConverter
 {
-    public IAcknowledgementShippingNotificationConvertResult Convert(AcknowledgementShippingNotificationInput input)
+    public IAsnConvertResult Convert(AsnInput input)
     {
         if (input.BoxHeader is null)
         {
-            return new AcknowledgementShippingNotificationFailedConvertResult
+            return new AsnFailedConvertResult
             {
                 Reason = $"Failed to convert shipping notification as {nameof(input.BoxHeader)} is null"
             };
@@ -19,7 +19,7 @@ public class AcknowledgementShippingNotificationConverter : IAcknowledgementShip
 
         if (input.BoxHeader.BoxId is null)
         {
-            return new AcknowledgementShippingNotificationFailedConvertResult
+            return new AsnFailedConvertResult
             {
                 Reason = $"Failed to convert shipping notification as {nameof(input.BoxHeader.BoxId)} is null"
             };
@@ -27,7 +27,7 @@ public class AcknowledgementShippingNotificationConverter : IAcknowledgementShip
 
         if (input.BoxHeader.SupplierId is null)
         {
-            return new AcknowledgementShippingNotificationFailedConvertResult
+            return new AsnFailedConvertResult
             {
                 Reason = $"Failed to convert shipping notification as {nameof(input.BoxHeader.SupplierId)} is null for BoxId {input.BoxHeader.BoxId}"
             };
@@ -35,7 +35,7 @@ public class AcknowledgementShippingNotificationConverter : IAcknowledgementShip
 
         if (input.Contents.Count == 0)
         {
-            return new AcknowledgementShippingNotificationFailedConvertResult
+            return new AsnFailedConvertResult
             {
                 Reason = $"Failed to convert shipping notification as no product inputs found for BoxId {input.BoxHeader.BoxId}"
             };
@@ -47,7 +47,7 @@ public class AcknowledgementShippingNotificationConverter : IAcknowledgementShip
 
         if (failedProductConvertResults.Any())
         {
-            return new AcknowledgementShippingNotificationFailedConvertResult
+            return new AsnFailedConvertResult
             {
                 Reason =
                     $"Failed to convert {failedProductConvertResults.Count} products for box ID: {input.BoxHeader.BoxId}",
@@ -55,9 +55,9 @@ public class AcknowledgementShippingNotificationConverter : IAcknowledgementShip
             };
         }
         
-        return new AcknowledgementShippingNotificationSuccessConvertResult
+        return new AsnSuccessConvertResult
         {
-            AcknowledgementShippingNotification = new AcknowledgementShippingNotification
+            Asn = new Asn
             {
                 BoxId = input.BoxHeader.BoxId,
                 SupplierId = input.BoxHeader.SupplierId,

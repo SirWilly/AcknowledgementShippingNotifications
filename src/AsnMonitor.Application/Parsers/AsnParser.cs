@@ -1,22 +1,22 @@
-﻿using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
+﻿using AsnMonitor.Application.NotificationInputs;
 using Microsoft.Extensions.Logging;
 
-namespace AcknowledgementShippingNotificationWatcher.Parsers;
+namespace AsnMonitor.Application.Parsers;
 
-public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logger)
+public class AsnParser(ILogger<AsnParser> logger)
 {
-    public List<AcknowledgementShippingNotificationInput> Parse(string inputFileContents)
+    public List<AsnInput> Parse(string inputFileContents)
     {
         var boxStrings =  inputFileContents.Split("HDR", StringSplitOptions.RemoveEmptyEntries);
         return boxStrings.Select(ParseBox).ToList();
     }
     
-    public AcknowledgementShippingNotificationInput ParseBox(string boxString)
+    public AsnInput ParseBox(string boxString)
     {
         var boxHeader = ParseBoxHeader(boxString);
         var contents = ParseBoxContents(boxString);
 
-        return new AcknowledgementShippingNotificationInput
+        return new AsnInput
         {
             BoxHeader = boxHeader,
             Contents = contents.ToList()

@@ -1,12 +1,12 @@
-using AcknowledgementShippingNotificationWatcher.Domain;
+using AsnMonitor.Application;
 
 namespace AsnMonitor.AuditDb;
 
-public class AsnAuditRepository : IShippingNotificationAuditRepository
+public class AsnAuditRepository : IAsnAuditRepository
 {
     private readonly AsnAuditContext _asnAuditContext = new();
     
-    public void Add(AcknowledgementShippingNotification notification)
+    public void Add(Asn notification)
     {
         var box = AsnAuditConverter.Convert(notification);
         

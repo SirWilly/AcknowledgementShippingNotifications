@@ -1,19 +1,18 @@
-using AcknowledgementShippingNotificationWatcher.Domain;
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
-using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters;
-using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
+using AsnMonitor.Application.Converters;
+using AsnMonitor.Application.Converters.Results;
+using AsnMonitor.Application.NotificationInputs;
 using Shouldly;
 
 namespace AsnMonitor.Application.Tests.ShippingNotificationConverters;
 
 public class ConvertProductInputTests
 {
-    private readonly AcknowledgementShippingNotificationConverter _acknowledgementShippingNotificationConverter = new();
+    private readonly AsnConverter _asnConverter = new();
 
     [TestCaseSource(typeof(ConvertProductFailedResultTestCaseSource))]
     public void Convert_UnexpectedInput_ShouldReturnFailedResult(ConvertProductFailedResultTestCase testCase)
     {
-        _acknowledgementShippingNotificationConverter.Convert(testCase.ProductInput)
+        _asnConverter.Convert(testCase.ProductInput)
             .ShouldBeOfType<ProductConvertFailureResult>()
             .Reason.ShouldBe(testCase.ExpectedReason);
     }
@@ -36,6 +35,6 @@ public class ConvertProductInputTests
                 Quantity = 12
             }
         };
-        _acknowledgementShippingNotificationConverter.Convert(input).ShouldBeEquivalentTo(expectedResult);
+        _asnConverter.Convert(input).ShouldBeEquivalentTo(expectedResult);
     }
 }

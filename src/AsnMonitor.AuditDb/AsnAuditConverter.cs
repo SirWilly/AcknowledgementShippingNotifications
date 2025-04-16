@@ -1,17 +1,17 @@
-using AcknowledgementShippingNotificationWatcher.Domain;
+using AsnMonitor.Application;
 using AsnMonitor.AuditDb.Models;
 
 namespace AsnMonitor.AuditDb;
 
 public static class AsnAuditConverter
 {
-    public static Box Convert(AcknowledgementShippingNotification acknowledgementShippingNotification)
+    public static Box Convert(Asn asn)
     {
         return new Box
         {
-            BoxId = acknowledgementShippingNotification.BoxId,
-            SupplierId = acknowledgementShippingNotification.SupplierId,
-            Products = acknowledgementShippingNotification.Contents.Select(Convert).ToList()
+            BoxId = asn.BoxId,
+            SupplierId = asn.SupplierId,
+            Products = asn.Contents.Select(Convert).ToList()
         };
     }
 

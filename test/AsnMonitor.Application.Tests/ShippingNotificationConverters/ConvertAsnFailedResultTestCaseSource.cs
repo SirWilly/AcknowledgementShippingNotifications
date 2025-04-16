@@ -1,16 +1,16 @@
 using System.Collections;
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
+using AsnMonitor.Application.NotificationInputs;
 
 namespace AsnMonitor.Application.Tests.ShippingNotificationConverters;
 
-public class ConvertAcknowledgementShippingNotificationFailedResultTestCaseSource : IEnumerable
+public class ConvertAsnFailedResultTestCaseSource : IEnumerable
 {
     public IEnumerator GetEnumerator()
     {
         yield return new TestCaseData(
-            new ConvertAcknowledgementShippingNotificationFailedResultTestCase
+            new ConvertAsnFailedResultTestCase
             {
-                Input = new AcknowledgementShippingNotificationInput
+                Input = new AsnInput
                 {
                     BoxHeader = null,
                     Contents = new List<ProductInput?>()
@@ -19,9 +19,9 @@ public class ConvertAcknowledgementShippingNotificationFailedResultTestCaseSourc
             }).SetName("BoxHeader is null");
         
         yield return new TestCaseData(
-            new ConvertAcknowledgementShippingNotificationFailedResultTestCase
+            new ConvertAsnFailedResultTestCase
             {
-                Input = new AcknowledgementShippingNotificationInput
+                Input = new AsnInput
                 {
                     BoxHeader = new BoxHeaderInput
                     {
@@ -34,9 +34,9 @@ public class ConvertAcknowledgementShippingNotificationFailedResultTestCaseSourc
             }).SetName("BoxId is null");
         
         yield return new TestCaseData(
-            new ConvertAcknowledgementShippingNotificationFailedResultTestCase
+            new ConvertAsnFailedResultTestCase
             {
-                Input = new AcknowledgementShippingNotificationInput
+                Input = new AsnInput
                 {
                     BoxHeader = new BoxHeaderInput
                     {
@@ -49,9 +49,9 @@ public class ConvertAcknowledgementShippingNotificationFailedResultTestCaseSourc
             }).SetName("SupplierId is null");
         
         yield return new TestCaseData(
-            new ConvertAcknowledgementShippingNotificationFailedResultTestCase
+            new ConvertAsnFailedResultTestCase
             {
-                Input = new AcknowledgementShippingNotificationInput
+                Input = new AsnInput
                 {
                     BoxHeader = new BoxHeaderInput
                     {
@@ -64,9 +64,9 @@ public class ConvertAcknowledgementShippingNotificationFailedResultTestCaseSourc
             }).SetName("No product lines");
         
         yield return new TestCaseData(
-            new ConvertAcknowledgementShippingNotificationFailedResultTestCase
+            new ConvertAsnFailedResultTestCase
             {
-                Input = new AcknowledgementShippingNotificationInput
+                Input = new AsnInput
                 {
                     BoxHeader = new BoxHeaderInput
                     {

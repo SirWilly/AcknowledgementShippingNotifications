@@ -1,4 +1,4 @@
-namespace AcknowledgementShippingNotificationWatcher.Domain;
+namespace AsnMonitor.Application;
 
 public class Product
 {

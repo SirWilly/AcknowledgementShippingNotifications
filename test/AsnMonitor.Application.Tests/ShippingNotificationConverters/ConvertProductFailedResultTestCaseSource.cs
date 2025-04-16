@@ -1,5 +1,5 @@
 using System.Collections;
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
+using AsnMonitor.Application.NotificationInputs;
 
 namespace AsnMonitor.Application.Tests.ShippingNotificationConverters;
 

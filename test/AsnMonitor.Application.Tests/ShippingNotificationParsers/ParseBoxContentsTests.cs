@@ -1,5 +1,5 @@
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
-using AcknowledgementShippingNotificationWatcher.Parsers;
+using AsnMonitor.Application.NotificationInputs;
+using AsnMonitor.Application.Parsers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Shouldly;
@@ -8,12 +8,12 @@ namespace AsnMonitor.Application.Tests.ShippingNotificationParsers;
 
 public class ParseBoxContentsTests
 {
-    private readonly ShippingNotificationParser _shippingNotificationParser;
+    private readonly AsnParser _asnParser;
 
     public ParseBoxContentsTests()
     {
-        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
-        _shippingNotificationParser = new ShippingNotificationParser(logger);
+        var logger = Substitute.For<ILogger<AsnParser>>();
+        _asnParser = new AsnParser(logger);
     }
     
     [Test]
@@ -24,7 +24,7 @@ public class ParseBoxContentsTests
 
                                    """;
         
-        var contents = _shippingNotificationParser.ParseBoxContents(inputString);
+        var contents = _asnParser.ParseBoxContents(inputString);
         contents.ShouldBeEmpty();
     }
 
@@ -54,7 +54,7 @@ public class ParseBoxContentsTests
                 Quantity = 2
             }
         };
-        var contents = _shippingNotificationParser.ParseBoxContents(inputString);
+        var contents = _asnParser.ParseBoxContents(inputString);
         contents.ShouldBe(expectedContents);
     }
 }

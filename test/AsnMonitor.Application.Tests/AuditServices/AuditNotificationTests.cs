@@ -1,7 +1,6 @@
-﻿using AcknowledgementShippingNotificationWatcher.Domain;
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
-using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters;
-using AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
+﻿using AsnMonitor.Application.Converters;
+using AsnMonitor.Application.Converters.Results;
+using AsnMonitor.Application.NotificationInputs;
 using NSubstitute;
 using Shouldly;
 
@@ -9,41 +8,41 @@ namespace AsnMonitor.Application.Tests.AuditServices;
 
 public class AuditNotificationTests
 {
-    private ShippingNotificationAuditService _shippingNotificationAuditService;
-    private IShippingNotificationAuditRepository _auditRepository;
-    private IAcknowledgementShippingNotificationConverter _acknowledgementShippingNotificationConverter;
+    private AsnAuditService _asnAuditService;
+    private IAsnAuditRepository _auditRepository;
+    private IAsnConverter _asnConverter;
 
     [SetUp]
     public void Setup()
     {
-        _acknowledgementShippingNotificationConverter = Substitute.For<IAcknowledgementShippingNotificationConverter>();
-        _auditRepository = Substitute.For<IShippingNotificationAuditRepository>();
-        _shippingNotificationAuditService = new ShippingNotificationAuditService(
-            _acknowledgementShippingNotificationConverter, _auditRepository);
+        _asnConverter = Substitute.For<IAsnConverter>();
+        _auditRepository = Substitute.For<IAsnAuditRepository>();
+        _asnAuditService = new AsnAuditService(
+            _asnConverter, _auditRepository);
     }
 
     [Test]
     public void AuditNotification_FailedResult_ShouldThrow()
     {
-        var input = new AcknowledgementShippingNotificationInput
+        var input = new AsnInput
         {
             Contents = new List<ProductInput?>()
         };
-        _acknowledgementShippingNotificationConverter.Convert(input)
-            .Returns(new AcknowledgementShippingNotificationFailedConvertResult
+        _asnConverter.Convert(input)
+            .Returns(new AsnFailedConvertResult
             {
                 Reason = "Failed"
             });
 
         Should.Throw<FormatException>(() =>
-                _shippingNotificationAuditService.AuditNotification(input))
+                _asnAuditService.AuditNotification(input))
             .Message.ShouldStartWith("Failed to convert shipping notification input. Reason:");
     }
 
     [Test]
     public void AuditNotification_SuccessResult_ShouldSave()
     {
-        var input = new AcknowledgementShippingNotificationInput
+        var input = new AsnInput
         {
             BoxHeader = new BoxHeaderInput
             {
@@ -60,9 +59,9 @@ public class AuditNotificationTests
                 }
             }
         };
-        var convertSuccessResult = new AcknowledgementShippingNotificationSuccessConvertResult
+        var convertSuccessResult = new AsnSuccessConvertResult
         {
-            AcknowledgementShippingNotification = new AcknowledgementShippingNotification
+            Asn = new Asn
             {
                 BoxId = "6874453I",
                 SupplierId = "TRSP117",
@@ -77,25 +76,25 @@ public class AuditNotificationTests
                 }
             }
         };
-        _acknowledgementShippingNotificationConverter.Convert(input)
+        _asnConverter.Convert(input)
             .Returns(convertSuccessResult);
 
-        _shippingNotificationAuditService.AuditNotification(input);
-        _auditRepository.Received(1).Add(convertSuccessResult.AcknowledgementShippingNotification);
+        _asnAuditService.AuditNotification(input);
+        _auditRepository.Received(1).Add(convertSuccessResult.Asn);
     }
 
     [Test]
     public void AuditNotification_UnknownResultType_ShouldThrow()
     {
-        var input = new AcknowledgementShippingNotificationInput
+        var input = new AsnInput
         {
             Contents = new List<ProductInput?>()
         };
-        _acknowledgementShippingNotificationConverter.Convert(input)
+        _asnConverter.Convert(input)
             .Returns(new UnknownShippingNotificationConvertResult());
         
         Should.Throw<Exception>(() =>
-                _shippingNotificationAuditService.AuditNotification(input))
-            .Message.ShouldBe("Unexpected result from AcknowledgementShippingNotificationConverter");
+                _asnAuditService.AuditNotification(input))
+            .Message.ShouldBe("Unexpected result from AsnConverter");
     }
 }

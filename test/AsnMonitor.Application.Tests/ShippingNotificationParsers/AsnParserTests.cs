@@ -1,23 +1,23 @@
-using AcknowledgementShippingNotificationWatcher.Domain.NotificationInputs;
-using AcknowledgementShippingNotificationWatcher.Parsers;
+using AsnMonitor.Application.NotificationInputs;
+using AsnMonitor.Application.Parsers;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Shouldly;
 
 namespace AsnMonitor.Application.Tests.ShippingNotificationParsers;
 
-public class ShippingNotificationParserTests
+public class AsnParserTests
 {
-    private readonly ShippingNotificationParser _shippingNotificationParser;
+    private readonly AsnParser _asnParser;
 
-    public ShippingNotificationParserTests()
+    public AsnParserTests()
     {
-        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
-        _shippingNotificationParser = new ShippingNotificationParser(logger);
+        var logger = Substitute.For<ILogger<AsnParser>>();
+        _asnParser = new AsnParser(logger);
     }
 
     [Test]
-    public void Parse_SingleBoxString_ReturnsAcknowledgementShippingNotificationInput()
+    public void Parse_SingleBoxString_ReturnsAsnInput()
     { 
         const string inputString = """
                                    HDR  TRSP117                                                                                     6874453I                           
@@ -29,7 +29,7 @@ public class ShippingNotificationParserTests
                                    LINE P000001661                           9781473665798                     1      
 
                                    """;
-        var expectedOutput = new AcknowledgementShippingNotificationInput
+        var expectedOutput = new AsnInput
         {
             BoxHeader = new BoxHeaderInput
             {
@@ -59,13 +59,13 @@ public class ShippingNotificationParserTests
             }
         };
         
-        var acknowledgementShippingNotificationDto = _shippingNotificationParser.ParseBox(inputString);
-        acknowledgementShippingNotificationDto.ShouldBeEquivalentTo(expectedOutput);
+        var asnInput = _asnParser.ParseBox(inputString);
+        asnInput.ShouldBeEquivalentTo(expectedOutput);
     }
 
     [Test]
     public void Parse_AcceptanceInputFileText_ReturnsCollectionOfAsnInputs()
     {
-        _shippingNotificationParser.Parse(AcceptanceTestData.InputFileContents).Count.ShouldBe(8);
+        _asnParser.Parse(AcceptanceTestData.InputFileContents).Count.ShouldBe(8);
     }
 }

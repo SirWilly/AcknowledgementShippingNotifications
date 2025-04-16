@@ -1,3 +1,0 @@
-namespace AcknowledgementShippingNotificationWatcher.Domain.ShippingNotificationConverters.Results;
-
-public interface IAcknowledgementShippingNotificationConvertResult { }
