@@ -8,8 +8,16 @@ namespace AcknowledgementShippingNotificationWatcher.Tests.ShippingNotificationP
 
 public class ShippingNotificationParserTests
 {
+    private readonly ShippingNotificationParser _shippingNotificationParser;
+
+    public ShippingNotificationParserTests()
+    {
+        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
+        _shippingNotificationParser = new ShippingNotificationParser(logger);
+    }
+
     [Test]
-    public void Parse_ValidInputString_ReturnsAcknowledgementShippingNotificationDto()
+    public void Parse_SingleBoxString_ReturnsAcknowledgementShippingNotificationInput()
     { 
         const string inputString = """
                                    HDR  TRSP117                                                                                     6874453I                           
@@ -50,10 +58,14 @@ public class ShippingNotificationParserTests
                 }
             }
         };
-        var logger = Substitute.For<ILogger<ShippingNotificationParser>>();
-        var shippingNotificationParser = new ShippingNotificationParser(logger);
         
-        var acknowledgementShippingNotificationDto = shippingNotificationParser.Parse(inputString);
+        var acknowledgementShippingNotificationDto = _shippingNotificationParser.ParseBox(inputString);
         acknowledgementShippingNotificationDto.ShouldBeEquivalentTo(expectedOutput);
+    }
+
+    [Test]
+    public void Parse_AcceptanceInputFileText_ReturnsCollectionOfAsnInputs()
+    {
+        _shippingNotificationParser.Parse(AcceptanceTestData.InputFileContents).Count.ShouldBe(8);
     }
 }

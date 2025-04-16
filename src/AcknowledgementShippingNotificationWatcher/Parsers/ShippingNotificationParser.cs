@@ -5,7 +5,13 @@ namespace AcknowledgementShippingNotificationWatcher.Parsers;
 
 public class ShippingNotificationParser(ILogger<ShippingNotificationParser> logger)
 {
-    public AcknowledgementShippingNotificationInput Parse(string boxString)
+    public List<AcknowledgementShippingNotificationInput> Parse(string inputFileContents)
+    {
+        var boxStrings =  inputFileContents.Split("HDR", StringSplitOptions.RemoveEmptyEntries);
+        return boxStrings.Select(ParseBox).ToList();
+    }
+    
+    public AcknowledgementShippingNotificationInput ParseBox(string boxString)
     {
         var boxHeader = ParseBoxHeader(boxString);
         var contents = ParseBoxContents(boxString);
